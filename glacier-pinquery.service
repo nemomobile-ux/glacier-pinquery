@@ -1,0 +1,9 @@
+[Unit]
+Description=Pin query app
+After=pre-user-session.target
+Requires=dbus.socket pre-user-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/glacier-pinquery
+

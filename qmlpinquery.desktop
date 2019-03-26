@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=PIN Entry
-Categories=Applications;
-Exec=invoker --type=qtcomponents-qt5 -s /usr/bin/qmlpinquery
-Icon=icon-app-pinquery
-
-X-Desktop-File-Install-Version=0.20

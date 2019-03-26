@@ -1,6 +1,7 @@
 /*
 * This file is part of meego-pinquery
 *
+* Copyright (C) 2019 Chupligin Sergey <neochapay@gmail.com>
 * Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies). All rights reserved.
 *
 * Contact: Sirpa Kemppainen <sirpa.h.kemppainen@nokia.com>
@@ -19,8 +20,10 @@
 *
 */
 
-import QtQuick 2.0
-import com.nokia.meego 2.0
+import QtQuick 2.6
+import QtQuick.Controls 1.0
+import QtQuick.Controls.Nemo 1.0
+import QtQuick.Controls.Styles.Nemo 1.0
 
 Page {
     id: pinPage
@@ -29,9 +32,9 @@ Page {
     PinEntry {
         id: pinEntry
         visible: true
-        placeHolderText: 'Enter PIN code'
-        errorText: 'Incorrect PIN code'
-        okText: 'PIN code correct'
+        placeHolderText: qsTr('Enter PIN code')
+        errorText: qsTr('Incorrect PIN code')
+        okText: qsTr('PIN code correct')
         anchors {
             top: parent.top
             bottom: numPad.top
@@ -45,13 +48,13 @@ Page {
     {
         id: pukEntry
         visible: false
-        placeHolderText: 'Enter PUK code'
-        errorText: 'Resetting PIN code failed'
-        okText: 'PIN code resetted successfully'
+        placeHolderText: qsTr('Enter PUK code')
+        errorText: qsTr('Resetting PIN code failed')
+        okText: qsTr('PIN code resetted successfully')
 
-        property string stepOneText: 'Enter PUK code'
-        property string stepTwoText: 'Enter new pin code'
-        property string stepThreeText: 'Re-enter new pin code'
+        property string stepOneText: qsTr('Enter PUK code')
+        property string stepTwoText: qsTr('Enter new pin code')
+        property string stepThreeText: qsTr('Re-enter new pin code')
 
         anchors {
             top: parent.top

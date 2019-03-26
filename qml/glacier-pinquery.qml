@@ -1,8 +1,7 @@
 /*
 * This file is part of meego-pinquery
-*
+* Copyright (C) 2019 Chupligin Sergey <neochapay@gmail.com>
 * Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies). All rights reserved.
-*
 * Contact: Sirpa Kemppainen <sirpa.h.kemppainen@nokia.com>
 *
 * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,11 +18,13 @@
 *
 */
 
-import QtQuick 2.0
-import com.nokia.meego 2.0
+import QtQuick 2.6
+import QtQuick.Controls 1.0
+import QtQuick.Controls.Nemo 1.0
+import QtQuick.Controls.Styles.Nemo 1.0
 
-PageStackWindow {
+ApplicationWindow {
     id: window
 
-    initialPage: Component { PinPage { } }
+    initialPage: PinPage { }
 }

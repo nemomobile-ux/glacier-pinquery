@@ -1,4 +1,5 @@
 /*
+ * Copyright (C) 2018 Chupligin Sergey <neochapay@gmail.com>
  * Copyright (C) 2013 Robin Burchell <robin+mer@viroteck.net>
  * Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
  *
@@ -30,6 +31,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
  */
 
+#include <glacierapp.h>
+
 #include <QGuiApplication>
 #include <QQmlContext>
 #include <QQmlEngine>
@@ -37,38 +40,12 @@
 #include <QEvent>
 #include <QKeyEvent>
 #include <QDebug>
-
-// Header below is missing from MeeGo OBS
-//#include <QSystemScreenSaver>
+#include <QQmlApplicationEngine>
 
 #include "ofonosimif.h"
 
-#ifdef HAS_BOOSTER
-#include <MDeclarativeCache>
-#endif
-
-#ifdef HAS_BOOSTER
-Q_DECL_EXPORT
-#endif
-int main(int argc, char **argv)
+Q_DECL_EXPORT int main(int argc, char **argv)
 {
-    QGuiApplication *application;
-    QQuickView *view;
-#ifdef HAS_BOOSTER
-    application = MDeclarativeCache::qApplication(argc, argv);
-    application->setApplicationName("qmlpinquery");
-    application->setOrganizationName("org.nemomobile");
-    view = MDeclarativeCache::qQuickView();
-#else
-    qWarning() << Q_FUNC_INFO << "Warning! Running without booster. This may be a bit slower.";
-    QGuiApplication stackApp(argc, argv);
-    application->setApplicationName("qmlpinquery");
-    application->setOrganizationName("org.nemomobile");
-    QQuickView stackView;
-    application = &stackApp;
-    view = &stackView;
-#endif
-
     OfonoSimIf *ofonoSimIf = new OfonoSimIf();
 
     if (!ofonoSimIf->pinRequired()) {
@@ -76,28 +53,17 @@ int main(int argc, char **argv)
         exit(0);
     }
 
-    QObject::connect(view->engine(), SIGNAL(quit()), application, SLOT(quit()));
-    view->rootContext()->setContextProperty("ofonoSimIf", ofonoSimIf);
-    view->setSource(QUrl("qrc:/qml/main.qml"));
+    QGuiApplication *app = GlacierApp::app(argc, argv);
+    app->setOrganizationName("NemoMobile");
 
-    // QSystemScreenSaver is not available in MeeGo OBS
-    //QSystemScreenSaver *screenSaver = new QSystemScreenSaver();
-    //screenSaver->setScreenSaverInhibit();
+    QQmlApplicationEngine *engine = GlacierApp::engine(app);
+    QQmlContext *context = engine->rootContext();
 
-    view->showFullScreen();
+    QObject::connect(engine, SIGNAL(quit()), app, SLOT(quit()));
+    context->setContextProperty("ofonoSimIf", ofonoSimIf);
 
-    // Send fake key presses to try to dismiss screensaver if it is alredy active.
-    // Don't delete events in this method
-    QKeyEvent* keyPress = new QKeyEvent( QEvent::KeyPress, Qt::Key_Space, Qt::NoModifier);
-    QKeyEvent* keyRelease = new QKeyEvent( QEvent::KeyRelease, Qt::Key_Space, Qt::NoModifier);
+    QQuickWindow *window = GlacierApp::showWindow();
+    window->setTitle(QObject::tr("PIN quiery"));
 
-    application->postEvent(view, keyPress);
-    application->postEvent(view, keyRelease);
-    application->sendPostedEvents(0, 0);
-
-    int ret = application->exec();
-
-    //delete screenSaver;
-    delete ofonoSimIf;
-    return ret;
+    return app->exec();
 }

@@ -38,10 +38,7 @@ OfonoSimIf::OfonoSimIf() :
 void OfonoSimIf::startup()
 {
     qDebug() << QString("-->OfonoSimIf::startup");
-
-    QOfonoManager ofonomanager;
     QOfonoModem modem;
-    modem.setModemPath(ofonomanager.modems().at(0));
 
     m_simManager = new QOfonoSimManager(this);
     m_simManager->setModemPath(modem.modemPath());
