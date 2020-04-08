@@ -11,6 +11,7 @@ Requires:   qt5-qtquickcontrols-nemo
 Requires:   libglacierapp
 Requires:   libqofono-qt5
 
+BuildRequires:  cmake
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
@@ -28,13 +29,19 @@ QML PIN query dialog
 %setup -q -n %{name}-%{version}
 
 %build
-%qmake5 
-make %{?jobs:-j%jobs}
+mkdir build
+cd build
+cmake \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DCMAKE_VERBOSE_MAKEFILE=ON \
+	..
+cmake --build .
 
 %install
+cd build
 rm -rf %{buildroot}
-%qmake5_install
-mkdir -p %{buildroot}%{_libdir}/systemd/user/
+DESTDIR=%{buildroot} cmake --build . --target install
 
 %files
 %defattr(-,root,root,-)
