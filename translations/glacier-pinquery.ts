@@ -49,7 +49,7 @@
     <name>QObject</name>
     <message>
         <location filename="../src/main.cpp" line="66"/>
-        <source>PIN quiery</source>
+        <source>PIN query</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
