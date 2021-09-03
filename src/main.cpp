@@ -63,7 +63,7 @@ Q_DECL_EXPORT int main(int argc, char **argv)
     context->setContextProperty("ofonoSimIf", ofonoSimIf);
 
     QQuickWindow *window = GlacierApp::showWindow();
-    window->setTitle(QObject::tr("PIN quiery"));
+    window->setTitle(QObject::tr("PIN query"));
 
     return app->exec();
 }
