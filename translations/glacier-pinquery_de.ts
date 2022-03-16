@@ -48,7 +48,7 @@
     <message>
         <location filename="../src/main.cpp" line="66"/>
         <source>PIN query</source>
-        <translation>PIN Abfrage</translation>
+        <translation>PIN-Abfrage</translation>
     </message>
 </context>
 </TS>
