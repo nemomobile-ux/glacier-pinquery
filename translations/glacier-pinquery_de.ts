@@ -40,7 +40,7 @@
     <message>
         <location filename="../src/qml/PinPage.qml" line="57"/>
         <source>Re-enter new pin code</source>
-        <translation>PIN-Code bestättigen</translation>
+        <translation>PIN-Code bestätigen</translation>
     </message>
 </context>
 <context>
