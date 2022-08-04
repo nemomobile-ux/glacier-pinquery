@@ -29,15 +29,19 @@ Button {
     property string detail: ""
 
     width: parent.width / 3
-    height: 72
+    height: Theme.itemHeightMedium
 
     Text {
         width: parent.width
         height: parent.height / 4
-        anchors {bottom: parent.bottom; margins: 8}
+        anchors {
+            bottom: parent.bottom
+            margins: 2
+        }
         text: parent.detail
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        font {pixelSize: parent.height / 4}
+        font.pixelSize: Theme.fontSizeTiny
+        color: Theme.textColor
     }
 }

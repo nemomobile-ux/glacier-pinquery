@@ -40,7 +40,7 @@ Page {
             bottom: numPad.top
             left: parent.left
             right: parent.right
-            margins: 10
+            margins: Theme.itemSpacingSmall
         }
     }
 
@@ -61,7 +61,7 @@ Page {
             bottom: numPad.top
             left: parent.left
             right: parent.right
-            margins: 10
+            margins: Theme.itemSpacingSmall
         }
     }
 

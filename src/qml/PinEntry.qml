@@ -31,7 +31,7 @@ Item
     property string placeHolderText: ''
     property string errorText: ''
     property string okText: ''
-    property string notRequiredText: 'PIN not required'
+    property string notRequiredText: qsTr('PIN not required')
     property TextInput textInput: input
 
     Timer {
@@ -52,9 +52,7 @@ Item
     {
         input.text = errorText;
         if (attemptsLeft > 0) {
-            input.text += ' (';
-            input.text += attemptsLeft.toString();
-            input.text += ' attempts left)';
+            input.text += qsTr(" (%n  attempts left)").arg(attemptsLeft)
         }
         input.state = "ErrorMsg";
         timer.start();
@@ -93,16 +91,18 @@ Item
         }
     }
 
-    SystemPalette { id: activePalette; colorGroup: SystemPalette.Active }
-
     TextInput
     {
         id: input
-        anchors {horizontalCenter: parent.horizontalCenter; verticalCenter: parent.verticalCenter; margins: 10}
-        color: activePalette.dark
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            verticalCenter: parent.verticalCenter
+            margins: Theme.itemSpacingSmall
+        }
+        color: Theme.accentColor
         cursorVisible: true
         readOnly: true
-        font {pixelSize: 42}
+        font.pixelSize: Theme.fontSizeLarge
         text: placeHolderText
         state: "Prompt"
 
@@ -115,7 +115,7 @@ Item
               name: "Prompt"
               PropertyChanges {
                 target: input
-                color: activePalette.dark;
+                color: Theme.accentColor;
                 echoMode: TextInput.Normal
               }
             },
@@ -123,7 +123,7 @@ Item
               name: "Input"
               PropertyChanges {
                 target: input
-                color: activePalette.windowText
+                color: Theme.textColor
                 echoMode: TextInput.PasswordEchoOnEdit
               }
             },
@@ -131,7 +131,7 @@ Item
               name: "InfoMsg"
               PropertyChanges {
                 target: input
-                color: activePalette.dark;
+                color: Theme.accentColor;
                 echoMode: TextInput.Normal
               }
             },

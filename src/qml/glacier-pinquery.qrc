@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>glacier-pinquery.qml</file>
+        <file>NumButton.qml</file>
+        <file>PinEntry.qml</file>
+        <file>PinNumPad.qml</file>
+        <file>PinPage.qml</file>
+   </qresource>
+</RCC>

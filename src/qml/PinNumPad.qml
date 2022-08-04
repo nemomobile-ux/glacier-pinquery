@@ -45,19 +45,19 @@ Item{
     {
         parent.pinType = pinType;
 
-        if (pinType == 'puk')
+        if (pinType === 'puk')
             {
             entry = pukEntry;
             entry.placeHolderText = pukEntry.stepOneText
             changeTimer.start();
             }
-        else if (pinType == 'newpin')
+        else if (pinType === 'newpin')
             {
             entry = pukEntry;
             entry.placeHolderText = pukEntry.stepTwoText;
             entry.clear();
             }
-        else if (pinType == 'confirm')
+        else if (pinType === 'confirm')
             {
             entry = pukEntry;
             entry.placeHolderText = pukEntry.stepThreeText;
@@ -113,88 +113,74 @@ Item{
 
         Behavior on opacity {PropertyAnimation {duration: 500}}
 
-        Column
-        {
-            anchors.fill: parent
+        Grid {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            columns: 3
 
-            Row
-            {
-                width: parent.width - 10
-                anchors.horizontalCenter: parent.horizontalCenter
-                NumButton {
-                    text: "1";
-                    detail: "";
-                    onClicked: pinNumPad.insertText('1');
-                }
-                NumButton {
-                    text: "2";
-                    detail: "ABC";
-                    onClicked: pinNumPad.insertText('2');
-                }
-                NumButton {
-                    text: "3";
-                    detail: "DEF";
-                    onClicked: pinNumPad.insertText('3');
-                }
+            NumButton {
+                text: "1";
+                detail: "";
+                onClicked: pinNumPad.insertText('1');
             }
-            Row
-            {
-                width: parent.width - 10
-                anchors.horizontalCenter: parent.horizontalCenter
-                NumButton {
-                    text: "4";
-                    detail: "GHI";
-                    onClicked: pinNumPad.insertText('4');
-                }
-                NumButton {
-                    text: "5";
-                    detail: "JKL";
-                    onClicked: pinNumPad.insertText('5');
-                }
-                NumButton {
-                    text: "6";
-                    detail: "MNO";
-                    onClicked: pinNumPad.insertText('6');
-                }
+            NumButton {
+                text: "2";
+                detail: "ABC";
+                onClicked: pinNumPad.insertText('2');
             }
-            Row
-            {
-                width: parent.width - 10
-                anchors.horizontalCenter: parent.horizontalCenter
-                NumButton {
-                    text: "7";
-                    detail: "PGRS";
-                    onClicked: pinNumPad.insertText('7');
-                }
-                NumButton {
-                    text: "8";
-                    detail: "TUV";
-                    onClicked: pinNumPad.insertText('8');
-                }
-                NumButton {
-                    text: "9";
-                    detail: "WXYZ";
-                    onClicked: pinNumPad.insertText('9');
-                }
+            NumButton {
+                text: "3";
+                detail: "DEF";
+                onClicked: pinNumPad.insertText('3');
             }
-            Row
-            {
-                width: parent.width - 10
-                anchors.horizontalCenter: parent.horizontalCenter
-                NumButton {
-                    text: "";
-                }
-                NumButton {
-                    text: "0";
-                    detail: "";
-                    onClicked: pinNumPad.insertText('0');
-                }
-                NumButton {
-                    text: "DEL";
-                    onClicked: pinNumPad.removeChar();
-                }
+
+            NumButton {
+                text: "4";
+                detail: "GHI";
+                onClicked: pinNumPad.insertText('4');
+            }
+            NumButton {
+                text: "5";
+                detail: "JKL";
+                onClicked: pinNumPad.insertText('5');
+            }
+            NumButton {
+                text: "6";
+                detail: "MNO";
+                onClicked: pinNumPad.insertText('6');
+            }
+
+            NumButton {
+                text: "7";
+                detail: "PGRS";
+                onClicked: pinNumPad.insertText('7');
+            }
+            NumButton {
+                text: "8";
+                detail: "TUV";
+                onClicked: pinNumPad.insertText('8');
+            }
+            NumButton {
+                text: "9";
+                detail: "WXYZ";
+                onClicked: pinNumPad.insertText('9');
+            }
+
+            NumButton {
+                text: "";
+            }
+            NumButton {
+                text: "0";
+                detail: "";
+                onClicked: pinNumPad.insertText('0');
+            }
+            NumButton {
+                text: "DEL";
+                onClicked: pinNumPad.removeChar();
             }
         }
+
+
     }
 
     Item
