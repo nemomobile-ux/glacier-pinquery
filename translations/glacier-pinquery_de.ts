@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="de" version="2.1">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="de">
 <context>
     <name>PinPage</name>
     <message>
@@ -30,7 +30,7 @@
     <message>
         <location filename="../src/qml/PinPage.qml" line="53"/>
         <source>PIN code resetted successfully</source>
-        <translation>Zurücksetzen des PIN-Codes erfolgreich.</translation>
+        <translation>Zurücksetzen des PIN-Codes erfolgreich</translation>
     </message>
     <message>
         <location filename="../src/qml/PinPage.qml" line="56"/>
@@ -40,7 +40,7 @@
     <message>
         <location filename="../src/qml/PinPage.qml" line="57"/>
         <source>Re-enter new pin code</source>
-        <translation>PIN-Code bestättigen</translation>
+        <translation>PIN-Code bestätigen</translation>
     </message>
 </context>
 <context>
@@ -48,7 +48,7 @@
     <message>
         <location filename="../src/main.cpp" line="66"/>
         <source>PIN query</source>
-        <translation>PIN Abfrage</translation>
+        <translation>PIN-Abfrage</translation>
     </message>
 </context>
 </TS>
