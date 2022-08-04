@@ -9,11 +9,14 @@
         <source>PIN not required</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
+    <message numerus="yes">
         <location filename="../src/qml/PinEntry.qml" line="55"/>
         <location filename="../src/qml/PinEntry.qml" line="55"/>
         <source> (%n  attempts left)</source>
-        <translation type="unfinished"></translation>
+        <comment>PinEntry</comment>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
 </context>
 <context>

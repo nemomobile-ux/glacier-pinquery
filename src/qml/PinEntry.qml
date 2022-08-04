@@ -52,7 +52,7 @@ Item
     {
         input.text = errorText;
         if (attemptsLeft > 0) {
-            input.text += qsTr(" (%n  attempts left)").arg(attemptsLeft)
+            input.text += qsTr(" (%n  attempts left)", "PinEntry", attemptsLeft)
         }
         input.state = "ErrorMsg";
         timer.start();
