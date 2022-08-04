@@ -28,7 +28,7 @@ Button {
     id: numButton
     property string detail: ""
 
-    width: parent.width / 3
+    width: (parent.width - 2 * Theme.itemSpacingExtraSmall) / 3
     height: Theme.itemHeightMedium
 
     Text {

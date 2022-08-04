@@ -29,6 +29,10 @@ Page {
     id: pinPage
     property string pinType: ofonoSimIf.pinType()
 
+    headerTools: HeaderToolsLayout {
+        title: qsTr("PIN query")
+    }
+
     PinEntry {
         id: pinEntry
         visible: true
@@ -44,8 +48,7 @@ Page {
         }
     }
 
-    PinEntry
-    {
+    PinEntry {
         id: pukEntry
         visible: false
         placeHolderText: qsTr('Enter PUK code')
@@ -65,12 +68,14 @@ Page {
         }
     }
 
-    PinNumPad
-    {
+    PinNumPad {
         id: numPad
-        width: parent.width
-        anchors {bottom: parent.bottom; right: parent.right}
-        entry: setEntry(pinPage.pinType)
+        anchors.bottom: parent.bottom;
+        anchors.left: parent.left
+        anchors.right: parent.right
+        Component.onCompleted: {
+            setEntry(pinPage.pinType)
+        }
 
     }
 }

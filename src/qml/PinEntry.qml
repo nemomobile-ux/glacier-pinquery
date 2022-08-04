@@ -42,14 +42,12 @@ Item
         onTriggered: clear();
     }
 
-    function clear()
-    {
+    function clear() {
         input.text = placeHolderText;
         input.state = "Prompt";
     }
 
-    function failed(attemptsLeft)
-    {
+    function failed(attemptsLeft) {
         input.text = errorText;
         if (attemptsLeft > 0) {
             input.text += qsTr(" (%n  attempts left)", "PinEntry", attemptsLeft)
@@ -58,22 +56,21 @@ Item
         timer.start();
     }
 
-    function notRequired()
-    {
+    function notRequired() {
         input.text = notRequiredText;
         input.state = "ErrorMsg";
         timer.start();
     }
 
-    function succeeded()
-    {
+    function succeeded() {
         input.text = okText;
         input.state = "InfoMsg";
     }
 
-    function appendChar(character)
-    {
-        if (timer.running) return;
+    function appendChar(character) {
+        if (timer.running) {
+            return;
+        }
 
         if (input.state != "Input") {
             input.text = character
@@ -84,15 +81,13 @@ Item
         input.state = "Input";
     }
 
-    function removeChar()
-    {
+    function removeChar() {
         if (input.state == "Input") {
             input.text = input.text.substring(0, input.text.length - 1);
         }
     }
 
-    TextInput
-    {
+    TextInput {
         id: input
         anchors {
             horizontalCenter: parent.horizontalCenter
@@ -107,7 +102,9 @@ Item
         state: "Prompt"
 
         onTextChanged: {
-            if (text.length == 0) pinEntry.clear();
+            if (text.length == 0) {
+                pinEntry.clear();
+            }
         }
 
         states: [

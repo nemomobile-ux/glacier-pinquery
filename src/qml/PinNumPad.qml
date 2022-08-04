@@ -29,46 +29,43 @@ Item{
 
     property PinEntry entry
 
-    height: 72 * 5 + 4
+    width: parent.width;
+    height: 5 * Theme.itemHeightMedium + 4 * Theme.itemSpacingExtraSmall
 
-    function insertText(text)
-    {
+    function insertText(text) {
         entry.appendChar(text)
     }
 
-    function removeChar()
-    {
+    function removeChar() {
         entry.removeChar()
     }
 
-    function setEntry(pinType)
-    {
-        parent.pinType = pinType;
+    function setEntry(pinType) {
+        pinPage.pinType = pinType;
 
-        if (pinType === 'puk')
-            {
+        switch(pinType) {
+        case 'puk':
             entry = pukEntry;
             entry.placeHolderText = pukEntry.stepOneText
             changeTimer.start();
-            }
-        else if (pinType === 'newpin')
-            {
+            break;
+        case 'newpin':
             entry = pukEntry;
             entry.placeHolderText = pukEntry.stepTwoText;
             entry.clear();
-            }
-        else if (pinType === 'confirm')
-            {
+            break;
+        case 'confirm':
             entry = pukEntry;
             entry.placeHolderText = pukEntry.stepThreeText;
             entry.clear();
-            }
-        else
-            {
+            break;
+        default:
             entry = pinEntry;
             pinEntry.visible = true;
             pukEntry.visible = false;
-            }
+            break;
+        }
+
     }
 
     Timer {
@@ -84,7 +81,10 @@ Item{
         interval: 1500;
         running: false;
         repeat: false;
-        onTriggered: {pukEntry.visible = true; pinEntry.visible = false;}
+        onTriggered: {
+            pukEntry.visible = true;
+            pinEntry.visible = false;
+        }
     }
 
     Connections {
@@ -106,117 +106,95 @@ Item{
         }
     }
 
-    Item
-    {
-        id: numpad
-        width: parent.width; height: 72 * 4;
+    Behavior on opacity {PropertyAnimation {duration: 500}}
 
-        Behavior on opacity {PropertyAnimation {duration: 500}}
+    Grid {
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: Theme.itemSpacingExtraSmall
+        spacing: Theme.itemSpacingExtraSmall
+        columns: 3
 
-        Grid {
-            anchors.left: parent.left
-            anchors.right: parent.right
-            columns: 3
+        NumButton {
+            text: "1";
+            detail: "";
+            onClicked: pinNumPad.insertText('1');
+        }
+        NumButton {
+            text: "2";
+            detail: "ABC";
+            onClicked: pinNumPad.insertText('2');
+        }
+        NumButton {
+            text: "3";
+            detail: "DEF";
+            onClicked: pinNumPad.insertText('3');
+        }
 
-            NumButton {
-                text: "1";
-                detail: "";
-                onClicked: pinNumPad.insertText('1');
-            }
-            NumButton {
-                text: "2";
-                detail: "ABC";
-                onClicked: pinNumPad.insertText('2');
-            }
-            NumButton {
-                text: "3";
-                detail: "DEF";
-                onClicked: pinNumPad.insertText('3');
-            }
+        NumButton {
+            text: "4";
+            detail: "GHI";
+            onClicked: pinNumPad.insertText('4');
+        }
+        NumButton {
+            text: "5";
+            detail: "JKL";
+            onClicked: pinNumPad.insertText('5');
+        }
+        NumButton {
+            text: "6";
+            detail: "MNO";
+            onClicked: pinNumPad.insertText('6');
+        }
 
-            NumButton {
-                text: "4";
-                detail: "GHI";
-                onClicked: pinNumPad.insertText('4');
-            }
-            NumButton {
-                text: "5";
-                detail: "JKL";
-                onClicked: pinNumPad.insertText('5');
-            }
-            NumButton {
-                text: "6";
-                detail: "MNO";
-                onClicked: pinNumPad.insertText('6');
-            }
+        NumButton {
+            text: "7";
+            detail: "PGRS";
+            onClicked: pinNumPad.insertText('7');
+        }
+        NumButton {
+            text: "8";
+            detail: "TUV";
+            onClicked: pinNumPad.insertText('8');
+        }
+        NumButton {
+            text: "9";
+            detail: "WXYZ";
+            onClicked: pinNumPad.insertText('9');
+        }
 
-            NumButton {
-                text: "7";
-                detail: "PGRS";
-                onClicked: pinNumPad.insertText('7');
-            }
-            NumButton {
-                text: "8";
-                detail: "TUV";
-                onClicked: pinNumPad.insertText('8');
-            }
-            NumButton {
-                text: "9";
-                detail: "WXYZ";
-                onClicked: pinNumPad.insertText('9');
-            }
+        NumButton {
+            text: "";
+        }
+        NumButton {
+            text: "0";
+            detail: "";
+            onClicked: pinNumPad.insertText('0');
+        }
+        NumButton {
+            text: "DEL";
+            onClicked: pinNumPad.removeChar();
+        }
 
-            NumButton {
-                text: "";
-            }
-            NumButton {
-                text: "0";
-                detail: "";
-                onClicked: pinNumPad.insertText('0');
-            }
-            NumButton {
-                text: "DEL";
-                onClicked: pinNumPad.removeChar();
-            }
+
+        NumButton {
+            text: "+";
+            onClicked: console.log("Emergency calls are not supported");
+        }
+        NumButton {
+            text: "OK";
+            onClicked: if (entry.textInput.state == "Input") ofonoSimIf.enterPin(entry.textInput.text.toString());
+        }
+        NumButton {
+            text: "SKIP";
+            onClicked: Qt.quit();
         }
 
 
     }
 
-    Item
-        {
-        id: actions
 
-        width: parent.width; height: 74
-        anchors {bottom: parent.bottom}
 
-        Item
-        {
-            anchors {fill: parent; margins: 4}
 
-            Button {
-                id: emergencybutton;
-                anchors {left: parent.left}
-                width: parent.width / 4
-                height: parent.height
-                text: "+";
-                onClicked: console.log("Emergency calls are not supported");
-            }
-            Button {
-                id: okbutton;
-                anchors {left: emergencybutton.right; right: skipbutton.left; margins: 5}
-                height: parent.height
-                text: "OK";
-                onClicked: if (entry.textInput.state == "Input") ofonoSimIf.enterPin(entry.textInput.text.toString());
-            }
-            Button {
-                id: skipbutton;
-                anchors {right: parent.right}
-                width: parent.width / 4
-                height: parent.height
-                text: "SKIP";
-                onClicked: Qt.quit();
-            }
-        }
-    }
 }
