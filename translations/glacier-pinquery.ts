@@ -12,7 +12,7 @@
     <message numerus="yes">
         <location filename="../src/qml/PinEntry.qml" line="55"/>
         <location filename="../src/qml/PinEntry.qml" line="55"/>
-        <source> (%n  atempts left)</source>
+        <source> (%n  attempts left)</source>
         <comment>PinEntry</comment>
         <translation type="unfinished">
             <numerusform></numerusform>
