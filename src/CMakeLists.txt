@@ -3,7 +3,9 @@ set(SRC
 	ofonosimif.cpp
 	ofonosimif.h)
 
-add_executable(glacier-pinquery ${SRC})
+qtquick_compiler_add_resources(RESOURCES qml/glacier-pinquery.qrc)
+
+add_executable(glacier-pinquery ${SRC} ${RESOURCES})
 
 target_link_libraries(glacier-pinquery PUBLIC
 	Qt5::Gui
@@ -14,5 +16,3 @@ target_link_libraries(glacier-pinquery PUBLIC
 	PkgConfig::QOFONO)
 install(TARGETS glacier-pinquery RUNTIME
 	DESTINATION ${CMAKE_INSTALL_BINDIR})
-install(DIRECTORY qml
-	DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-pinquery)
