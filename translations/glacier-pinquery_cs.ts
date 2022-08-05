@@ -12,7 +12,7 @@
         <location filename="../src/qml/PinEntry.qml" line="53"/>
         <source> (%n  attempts left)</source>
         <comment>PinEntry</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>(zbvývá poslední pokus)</numerusform><numerusform>(zbývají %n pokusy)</numerusform><numerusform>(zbývá %n pokusů)</numerusform><numerusform>(zbývá %n pokusů)</numerusform></translation>
     </message>
 </context>
 <context>
