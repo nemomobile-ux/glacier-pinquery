@@ -7,6 +7,13 @@
         <source>PIN not required</source>
         <translation>PIN není vyžadován</translation>
     </message>
+    <message numerus="yes">
+        <location filename="../src/qml/PinEntry.qml" line="53"/>
+        <location filename="../src/qml/PinEntry.qml" line="53"/>
+        <source> (%n  attempts left)</source>
+        <comment>PinEntry</comment>
+        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+    </message>
 </context>
 <context>
     <name>PinPage</name>
