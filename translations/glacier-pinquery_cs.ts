@@ -11,7 +11,7 @@
         <location filename="../src/qml/PinEntry.qml" line="55"/>
         <location filename="../src/qml/PinEntry.qml" line="55"/>
         <source> (%n  attempts left)</source>
-        <translation>(Zbývá %n pokusů)</translation>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>
