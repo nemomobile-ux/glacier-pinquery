@@ -14,7 +14,7 @@
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <source>PIN query</source>
-        <translation type="unfinished"/>
+        <translation>Zadání PINu</translation>
     </message>
     <message>
         <location filename="../src/qml/PinPage.qml" line="39"/>
