@@ -5,14 +5,14 @@
         <location filename="../src/qml/PinEntry.qml" line="34"/>
         <location filename="../src/qml/PinEntry.qml" line="34"/>
         <source>PIN not required</source>
-        <translation type="unfinished"/>
+        <translation>PIN nie jest wymagany</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/PinEntry.qml" line="53"/>
         <location filename="../src/qml/PinEntry.qml" line="53"/>
         <source> (%n  attempts left)</source>
         <comment>PinEntry</comment>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation><numerusform>(pozostała %n próba)</numerusform><numerusform>(pozostały %n próby)</numerusform><numerusform>(pozostało %n prób)</numerusform><numerusform>(pozostało %n próby)</numerusform></translation>
     </message>
 </context>
 <context>
@@ -21,7 +21,7 @@
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <source>PIN query</source>
-        <translation type="unfinished"/>
+        <translation>Prośba o kod PIN</translation>
     </message>
     <message>
         <location filename="../src/qml/PinPage.qml" line="39"/>
