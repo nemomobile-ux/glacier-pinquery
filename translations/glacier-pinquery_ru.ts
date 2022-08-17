@@ -5,7 +5,7 @@
         <location filename="../src/qml/PinEntry.qml" line="34"/>
         <location filename="../src/qml/PinEntry.qml" line="34"/>
         <source>PIN not required</source>
-        <translation>PIN-код не требуется</translation>
+        <translation>ПИН-код не требуется</translation>
     </message>
     <message numerus="yes">
         <location filename="../src/qml/PinEntry.qml" line="53"/>
