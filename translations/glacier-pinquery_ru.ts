@@ -21,7 +21,7 @@
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <source>PIN query</source>
-        <translation>Запрос PIN</translation>
+        <translation>Запрос ПИН</translation>
     </message>
     <message>
         <location filename="../src/qml/PinPage.qml" line="39"/>
