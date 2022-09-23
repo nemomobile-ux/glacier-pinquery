@@ -1,37 +1,37 @@
 /*
-* This file is part of meego-pinquery
-*
-* Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies). All rights reserved.
-*
-* Contact: Sirpa Kemppainen <sirpa.h.kemppainen@nokia.com>
-*
-* Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
-*
-* Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
-* Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
-* Neither the name of Nokia Corporation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
-* MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
-* EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
-* AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-* THE POSSIBILITY OF SUCH DAMAGE.
-*
-*/
+ * This file is part of meego-pinquery
+ *
+ * Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies). All rights reserved.
+ *
+ * Contact: Sirpa Kemppainen <sirpa.h.kemppainen@nokia.com>
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+ *
+ * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+ * Neither the name of Nokia Corporation nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
+ * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+ * THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ */
 
-#include <QtDebug>
 #include "ofonosimif.h"
+#include <QtDebug>
 #include <qofono-qt5/qofonomanager.h>
 #include <qofono-qt5/qofonomodem.h>
 
 #define RETRIES_PIN 3
 #define RETRIES_PUK 10
 
-OfonoSimIf::OfonoSimIf() :
-    m_simManager(0),
-    m_pinRequired(false),
-    m_attemptsLeft(RETRIES_PIN),
-    m_pinType("none")
+OfonoSimIf::OfonoSimIf()
+    : m_simManager(0)
+    , m_pinRequired(false)
+    , m_attemptsLeft(RETRIES_PIN)
+    , m_pinType("none")
 {
 }
 
@@ -47,22 +47,23 @@ void OfonoSimIf::startup()
         m_pinRequired = true;
         m_pinType = QString("pin");
         m_attemptsLeft = RETRIES_PIN;
-    } if (m_simManager->pinRequired() == QOfonoSimManager::SimPuk) {
+    }
+    if (m_simManager->pinRequired() == QOfonoSimManager::SimPuk) {
         m_pinRequired = true;
         m_pinType = QString("puk");
         m_attemptsLeft = RETRIES_PUK;
     }
 
-    //OfonoPinRetries retries = m_simManager->pinRetries();
+    // OfonoPinRetries retries = m_simManager->pinRetries();
 
-    //if (retries.contains("pin")) {
-    //    m_attemptsLeft = retries["pin"];
-    //}
+    // if (retries.contains("pin")) {
+    //     m_attemptsLeft = retries["pin"];
+    // }
 
-    connect(m_simManager, SIGNAL(enterPinComplete(QOfonoSimManager::Error,QString)), this, SLOT(enterPinComplete(QOfonoSimManager::Error,QString)));
-    connect(m_simManager, SIGNAL(resetPinComplete(QOfonoSimManager::Error,QString)), this, SLOT(resetPinComplete(QOfonoSimManager::Error,QString)));
+    connect(m_simManager, SIGNAL(enterPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(enterPinComplete(QOfonoSimManager::Error, QString)));
+    connect(m_simManager, SIGNAL(resetPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(resetPinComplete(QOfonoSimManager::Error, QString)));
     connect(m_simManager, SIGNAL(pinRequiredChanged(int)), this, SLOT(pinRequiredChanged(int)));
-    //connect(m_simManager, SIGNAL(pinRetriesChanged(const OfonoPinRetries&)), this, SLOT(pinRetriesChanged(const OfonoPinRetries&)));
+    // connect(m_simManager, SIGNAL(pinRetriesChanged(const OfonoPinRetries&)), this, SLOT(pinRetriesChanged(const OfonoPinRetries&)));
 
     if (modem.isValid()) {
         qDebug() << QString("Modem ok");
@@ -145,7 +146,7 @@ QString OfonoSimIf::pinType()
     return m_pinType;
 }
 
-void OfonoSimIf::enterPinComplete(QOfonoSimManager::Error error, const QString &errorString)
+void OfonoSimIf::enterPinComplete(QOfonoSimManager::Error error, const QString& errorString)
 {
     qDebug() << QString("-->OfonoSimIf::enterPinComplete");
 
@@ -162,7 +163,7 @@ void OfonoSimIf::enterPinComplete(QOfonoSimManager::Error error, const QString &
     qDebug() << QString("<--OfonoSimIf::enterPinComplete");
 }
 
-void OfonoSimIf::resetPinComplete(QOfonoSimManager::Error error, const QString &errorString)
+void OfonoSimIf::resetPinComplete(QOfonoSimManager::Error error, const QString& errorString)
 {
     qDebug() << QString("-->OfonoSimIf::resetPinComplete");
 
@@ -205,9 +206,9 @@ void OfonoSimIf::pinRequiredChanged(int pinType)
     emit pinTypeChanged(m_pinType);
 }
 
-//void OfonoSimIf::pinRetriesChanged(const OfonoPinRetries &pinRetries)
+// void OfonoSimIf::pinRetriesChanged(const OfonoPinRetries &pinRetries)
 //{
-//    if (pinRetries.contains("pin")) {
-//        m_attemptsLeft = pinRetries["pin"];
-//    }
-//}
+//     if (pinRetries.contains("pin")) {
+//         m_attemptsLeft = pinRetries["pin"];
+//     }
+// }

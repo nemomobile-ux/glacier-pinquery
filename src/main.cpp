@@ -33,36 +33,36 @@
 
 #include <glacierapp.h>
 
+#include <QDebug>
+#include <QEvent>
 #include <QGuiApplication>
+#include <QKeyEvent>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QQmlEngine>
 #include <QQuickView>
-#include <QEvent>
-#include <QKeyEvent>
-#include <QDebug>
-#include <QQmlApplicationEngine>
 
 #include "ofonosimif.h"
 
-Q_DECL_EXPORT int main(int argc, char **argv)
+Q_DECL_EXPORT int main(int argc, char** argv)
 {
-    OfonoSimIf *ofonoSimIf = new OfonoSimIf();
+    OfonoSimIf* ofonoSimIf = new OfonoSimIf();
 
     if (!ofonoSimIf->pinRequired()) {
         delete ofonoSimIf;
         exit(0);
     }
 
-    QGuiApplication *app = GlacierApp::app(argc, argv);
+    QGuiApplication* app = GlacierApp::app(argc, argv);
     app->setOrganizationName("NemoMobile");
 
-    QQmlApplicationEngine *engine = GlacierApp::engine(app);
-    QQmlContext *context = engine->rootContext();
+    QQmlApplicationEngine* engine = GlacierApp::engine(app);
+    QQmlContext* context = engine->rootContext();
 
     QObject::connect(engine, SIGNAL(quit()), app, SLOT(quit()));
     context->setContextProperty("ofonoSimIf", ofonoSimIf);
 
-    QQuickWindow *window = GlacierApp::showWindow();
+    QQuickWindow* window = GlacierApp::showWindow();
     window->setTitle(QObject::tr("PIN query"));
 
     return app->exec();
