@@ -21,11 +21,32 @@
     </message>
 </context>
 <context>
+    <name>PinNumPad</name>
+    <message>
+        <location filename="../src/qml/PinNumPad.qml" line="163"/>
+        <location filename="../src/qml/PinNumPad.qml" line="163"/>
+        <source>Emergency</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/qml/PinNumPad.qml" line="172"/>
+        <location filename="../src/qml/PinNumPad.qml" line="172"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../src/qml/PinNumPad.qml" line="172"/>
+        <location filename="../src/qml/PinNumPad.qml" line="172"/>
+        <source>SKIP</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PinPage</name>
     <message>
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <location filename="../src/qml/PinPage.qml" line="33"/>
-        <source>PIN query</source>
+        <source>Unlock SIM card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -82,7 +103,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="66"/>
+        <location filename="../src/main.cpp" line="67"/>
         <source>PIN query</source>
         <translation type="unfinished"></translation>
     </message>
