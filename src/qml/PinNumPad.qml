@@ -157,9 +157,10 @@ Item{
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        spacing: Theme.itemSpacingMedium
 
         PinActionButton {
-            width: parent.width/2 - 3* anchors.margins
+            width: parent.width/2 - parent.spacing
             text: qsTr("Emergency")
             onPressed: {
                 console.log("Emergency calls are not supported")
@@ -167,7 +168,7 @@ Item{
         }
 
         PinActionButton {
-            width: parent.width/2 - 3* anchors.margins
+            width: parent.width/2 - parent.spacing
             property bool btnIsOk: (entry.textInput.state == "Input")
             text: (btnIsOk)  ? qsTr("OK") : qsTr("SKIP")
             onPressed: {
