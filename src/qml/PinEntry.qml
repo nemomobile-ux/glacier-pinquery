@@ -89,15 +89,15 @@ Item
 
     TextInput {
         id: input
-        anchors {
-            horizontalCenter: parent.horizontalCenter
-            verticalCenter: parent.verticalCenter
-            margins: Theme.itemSpacingSmall
-        }
+        anchors.margins: Theme.itemSpacingSmall
+        anchors.fill: parent
+        horizontalAlignment: TextInput.AlignHCenter
+        verticalAlignment: TextInput.AlignVCenter
+        wrapMode: TextInput.Wrap
         color: Theme.accentColor
         cursorVisible: true
         readOnly: true
-        font.pixelSize: Theme.fontSizeLarge
+        font.pixelSize: Theme.fontSizeExtraLarge
         text: placeHolderText
         state: "Prompt"
 

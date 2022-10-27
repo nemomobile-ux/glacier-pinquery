@@ -64,7 +64,7 @@ Page {
             bottom: numPad.top
             left: parent.left
             right: parent.right
-            margins: Theme.itemSpacingSmall
+//            margins: Theme.itemSpacingSmall
         }
     }
 
@@ -73,7 +73,7 @@ Page {
         anchors.bottom: parent.bottom;
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.margins: Theme.itemSpacingLarge
+//        anchors.margins: Theme.itemSpacingLarge
         Component.onCompleted: {
             setEntry(pinPage.pinType)
         }
