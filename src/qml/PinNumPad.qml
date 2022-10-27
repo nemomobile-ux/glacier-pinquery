@@ -163,7 +163,7 @@ Item{
         PinActionButton {
             width: parent.width/2 - parent.spacing
             property bool btnIsOk: (entry.textInput.state == "Input")
-            text: (btnIsOk)  ? qsTr("OK") : qsTr("Skip")
+            text: (btnIsOk)  ? qsTr("Ok") : qsTr("Skip")
             onPressed: {
                 if (btnIsOk) {
                     ofonoSimIf.enterPin(entry.textInput.text.toString());

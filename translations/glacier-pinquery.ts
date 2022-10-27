@@ -31,7 +31,7 @@
     <message>
         <location filename="../src/qml/PinNumPad.qml" line="166"/>
         <location filename="../src/qml/PinNumPad.qml" line="166"/>
-        <source>OK</source>
+        <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
