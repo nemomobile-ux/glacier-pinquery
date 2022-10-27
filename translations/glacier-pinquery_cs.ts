@@ -16,12 +16,33 @@
     </message>
 </context>
 <context>
+    <name>PinNumPad</name>
+    <message>
+        <location filename="../src/qml/PinNumPad.qml" line="157"/>
+        <location filename="../src/qml/PinNumPad.qml" line="157"/>
+        <source>Emergency</source>
+        <translation>Nouzové volání</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
+        <source>Skip</source>
+        <translation>Přeskočit</translation>
+    </message>
+</context>
+<context>
     <name>PinPage</name>
     <message>
         <location filename="../src/qml/PinPage.qml" line="33"/>
         <location filename="../src/qml/PinPage.qml" line="33"/>
-        <source>PIN query</source>
-        <translation>Zadání PINu</translation>
+        <source>Unlock SIM card</source>
+        <translation>Odemknout SIM kartu</translation>
     </message>
     <message>
         <location filename="../src/qml/PinPage.qml" line="39"/>
@@ -77,7 +98,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../src/main.cpp" line="66"/>
+        <location filename="../src/main.cpp" line="67"/>
         <source>PIN query</source>
         <translation>Dotaz na PIN kód</translation>
     </message>
