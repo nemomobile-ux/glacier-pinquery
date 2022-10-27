@@ -23,21 +23,21 @@
 <context>
     <name>PinNumPad</name>
     <message>
-        <location filename="../src/qml/PinNumPad.qml" line="163"/>
-        <location filename="../src/qml/PinNumPad.qml" line="163"/>
+        <location filename="../src/qml/PinNumPad.qml" line="157"/>
+        <location filename="../src/qml/PinNumPad.qml" line="157"/>
         <source>Emergency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/PinNumPad.qml" line="172"/>
-        <location filename="../src/qml/PinNumPad.qml" line="172"/>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/qml/PinNumPad.qml" line="172"/>
-        <location filename="../src/qml/PinNumPad.qml" line="172"/>
-        <source>SKIP</source>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
+        <location filename="../src/qml/PinNumPad.qml" line="166"/>
+        <source>Skip</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

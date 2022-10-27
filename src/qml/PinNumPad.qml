@@ -30,7 +30,7 @@ Item{
     property PinEntry entry
 
     width: parent.width;
-    height: 5 * Theme.itemHeightMedium + 4 * Theme.itemSpacingExtraSmall
+    height: dialerButtons.height + actionButtons.height
 
     function insertText(text) {
         entry.appendChar(text)
@@ -108,7 +108,6 @@ Item{
 
     Behavior on opacity {PropertyAnimation {duration: 500}}
 
-
     ListModel {
         id: buttonsModel
         ListElement { number: "1"; letters: ""; }
@@ -144,13 +143,6 @@ Item{
             }
         }
 
-        BackButton {
-            isActive: (entry.textInput.state == "Input")
-            onPressed: {
-                pinNumPad.removeChar();
-            }
-        }
-
     }
 
     Row {
@@ -171,7 +163,7 @@ Item{
         PinActionButton {
             width: parent.width/2 - parent.spacing
             property bool btnIsOk: (entry.textInput.state == "Input")
-            text: (btnIsOk)  ? qsTr("OK") : qsTr("SKIP")
+            text: (btnIsOk)  ? qsTr("OK") : qsTr("Skip")
             onPressed: {
                 if (btnIsOk) {
                     ofonoSimIf.enterPin(entry.textInput.text.toString());

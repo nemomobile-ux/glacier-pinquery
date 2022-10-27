@@ -142,4 +142,14 @@ Item
             }
         ]
     }
+
+    BackButton{
+        anchors.verticalCenter: input.verticalCenter;
+        anchors.right: parent.right
+        anchors.margins: Theme.itemSpacingMedium
+        visible: input.state == "Input"
+        onPressed: {
+            pinEntry.removeChar();
+        }
+    }
 }
