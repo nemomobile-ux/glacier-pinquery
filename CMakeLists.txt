@@ -38,6 +38,8 @@ else()
 	set_property(GLOBAL APPEND PROPERTY PACKAGES_NOT_FOUND libsystemd)
 endif()
 
+install(FILES glacier-pinquery.png
+        DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/glacier-pinquery/images)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
