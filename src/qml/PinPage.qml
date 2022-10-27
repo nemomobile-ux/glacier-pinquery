@@ -30,7 +30,7 @@ Page {
     property string pinType: ofonoSimIf.pinType()
 
     headerTools: HeaderToolsLayout {
-        title: qsTr("PIN query")
+        title: qsTr("Unlock SIM card")
     }
 
     PinEntry {
@@ -73,6 +73,7 @@ Page {
         anchors.bottom: parent.bottom;
         anchors.left: parent.left
         anchors.right: parent.right
+        anchors.margins: Theme.itemSpacingLarge
         Component.onCompleted: {
             setEntry(pinPage.pinType)
         }

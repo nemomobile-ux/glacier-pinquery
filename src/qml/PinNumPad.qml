@@ -108,93 +108,78 @@ Item{
 
     Behavior on opacity {PropertyAnimation {duration: 500}}
 
+
+    ListModel {
+        id: buttonsModel
+        ListElement { number: "1"; letters: ""; }
+        ListElement { number: "2"; letters: "ABC"; }
+        ListElement { number: "3"; letters: "DEF"; }
+        ListElement { number: "4"; letters: "GHI"; }
+        ListElement { number: "5"; letters: "JKL"; }
+        ListElement { number: "6"; letters: "MNO"; }
+        ListElement { number: "7"; letters: "PQRS"; }
+        ListElement { number: "8"; letters: "TUV"; }
+        ListElement { number: "9"; letters: "WXYZ"; }
+        ListElement { number: "*"; letters: ""; }
+        ListElement { number: "0"; letters: "+"; }
+    }
+
     Grid {
+        id: dialerButtons
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: actionButtons.top
         anchors.margins: Theme.itemSpacingExtraSmall
         spacing: Theme.itemSpacingExtraSmall
         columns: 3
 
-        NumButton {
-            text: "1";
-            detail: "";
-            onClicked: pinNumPad.insertText('1');
-        }
-        NumButton {
-            text: "2";
-            detail: "ABC";
-            onClicked: pinNumPad.insertText('2');
-        }
-        NumButton {
-            text: "3";
-            detail: "DEF";
-            onClicked: pinNumPad.insertText('3');
+        Repeater {
+            model: buttonsModel
+            delegate: NumButton {
+                width: (dialerButtons.width - Theme.itemSpacingLarge*3) /3
+                text: model.number
+                subText: model.letters
+                onPressed: pinNumPad.insertText(model.number)
+            }
         }
 
-        NumButton {
-            text: "4";
-            detail: "GHI";
-            onClicked: pinNumPad.insertText('4');
+        BackButton {
+            isActive: (entry.textInput.state == "Input")
+            onPressed: {
+                pinNumPad.removeChar();
+            }
         }
-        NumButton {
-            text: "5";
-            detail: "JKL";
-            onClicked: pinNumPad.insertText('5');
-        }
-        NumButton {
-            text: "6";
-            detail: "MNO";
-            onClicked: pinNumPad.insertText('6');
-        }
-
-        NumButton {
-            text: "7";
-            detail: "PGRS";
-            onClicked: pinNumPad.insertText('7');
-        }
-        NumButton {
-            text: "8";
-            detail: "TUV";
-            onClicked: pinNumPad.insertText('8');
-        }
-        NumButton {
-            text: "9";
-            detail: "WXYZ";
-            onClicked: pinNumPad.insertText('9');
-        }
-
-        NumButton {
-            text: "";
-        }
-        NumButton {
-            text: "0";
-            detail: "";
-            onClicked: pinNumPad.insertText('0');
-        }
-        NumButton {
-            text: "DEL";
-            onClicked: pinNumPad.removeChar();
-        }
-
-
-        NumButton {
-            text: "+";
-            onClicked: console.log("Emergency calls are not supported");
-        }
-        NumButton {
-            text: "OK";
-            onClicked: if (entry.textInput.state == "Input") ofonoSimIf.enterPin(entry.textInput.text.toString());
-        }
-        NumButton {
-            text: "SKIP";
-            onClicked: Qt.quit();
-        }
-
 
     }
 
+    Row {
+        id: actionButtons
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        spacing: Theme.itemSpacingMedium
 
+        PinActionButton {
+            width: parent.width/2 - parent.spacing
+            text: qsTr("Emergency")
+            onPressed: {
+                console.log("Emergency calls are not supported")
+            }
+        }
 
+        PinActionButton {
+            width: parent.width/2 - parent.spacing
+            property bool btnIsOk: (entry.textInput.state == "Input")
+            text: (btnIsOk)  ? qsTr("OK") : qsTr("SKIP")
+            onPressed: {
+                if (btnIsOk) {
+                    ofonoSimIf.enterPin(entry.textInput.text.toString());
+                } else {
+                    Qt.quit();
+                }
+            }
+        }
+
+    }
 
 }
