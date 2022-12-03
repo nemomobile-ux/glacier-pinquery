@@ -61,10 +61,6 @@ void OfonoSimIf::startup()
         qWarning() << "m_simManager->getPropertiesSync returned false";
     }
 
-
-
-    QThread::sleep(1);
-
     qDebug() << "modem.modemPath()" << modem.modemPath();
     qDebug() << "modem.name()" << modem.name();
     qDebug() << "modem.manufacturer()" << modem.manufacturer();
