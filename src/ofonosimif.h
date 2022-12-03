@@ -23,7 +23,9 @@
 #define OFONOSIMIF_H
 
 #include <QtCore/QObject>
+#include <qofono-qt5/qofonomanager.h>
 #include <qofono-qt5/qofonosimmanager.h>
+#include <qofono-qt5/qofono.h>
 
 class PukInfo : public QObject {
     Q_OBJECT
@@ -70,6 +72,7 @@ private:
 
 private:
     QOfonoSimManager* m_simManager;
+    QOfonoManager* m_omanager;
     bool m_pinRequired;
     int m_attemptsLeft;
     QString m_pinType;

@@ -23,6 +23,7 @@
 #include <QtDebug>
 #include <qofono-qt5/qofonomanager.h>
 #include <qofono-qt5/qofonomodem.h>
+#include <qofono-qt5/qofononetworkregistration.h>
 
 #define RETRIES_PIN 3
 #define RETRIES_PUK 10
@@ -38,10 +39,71 @@ OfonoSimIf::OfonoSimIf()
 void OfonoSimIf::startup()
 {
     qDebug() << QString("-->OfonoSimIf::startup");
-    QOfonoModem modem;
 
+    m_omanager = new QOfonoManager(this);
     m_simManager = new QOfonoSimManager(this);
-    m_simManager->setModemPath(modem.modemPath());
+
+    m_omanager->getModems();
+    QOfonoModem modem;
+    QString defaultModemPath = m_omanager->defaultModem();
+
+    qDebug() << "m_omanager->defaultModem()" <<  defaultModemPath;
+
+    if (defaultModemPath == "") {
+        qWarning() << "No modems detected";
+        return;
+    }
+
+    modem.setModemPath(defaultModemPath);
+
+    if (!modem.powered()) {
+        qDebug() << "setting modem powered";
+        modem.setPowered(true);
+    }
+
+    if (!modem.online()) {
+        qDebug() << "setting Online";
+        modem.setOnline(true);
+    }
+
+    qDebug() << "m_omanager->available()" << m_omanager->available();
+
+    modem.setPowered(true);
+    modem.setOnline(true);
+    modem.getPropertiesSync();
+
+
+    m_simManager->setModemPath(defaultModemPath);
+    m_simManager->getPropertiesSync();
+
+
+    QThread::sleep(1);
+
+    qDebug() << "modem.powered()" << modem.powered();
+    qDebug() << "modem.online()" << modem.online();
+    qDebug() << "m_simManager->present()" << m_simManager->present();
+
+
+
+    qDebug() << "m_simManager->pinRequired()" << m_simManager->pinRequired();
+    qDebug() << "modemPath" << m_simManager->modemPath();
+    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
+
+    qDebug() << "subscriberIdentity" << m_simManager->subscriberIdentity();
+    qDebug() << "mobileCountryCode" << m_simManager->mobileCountryCode();
+    qDebug() << "mobileNetworkCode" << m_simManager->mobileNetworkCode();
+    qDebug() << "serviceProviderName" << m_simManager->serviceProviderName();
+    qDebug() << "subscriberNumbers" << m_simManager->subscriberNumbers();
+    qDebug() << "serviceNumbers" << m_simManager->serviceNumbers();
+    qDebug() << "pinRequired" << m_simManager->pinRequired();
+    qDebug() << "lockedPins" << m_simManager->lockedPins();
+    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
+    qDebug() << "preferredLanguages" << m_simManager->preferredLanguages();
+    qDebug() << "pinRetries" << m_simManager->pinRetries();
+    qDebug() << "fixedDialing" << m_simManager->fixedDialing();
+    qDebug() << "barredDialing" << m_simManager->barredDialing();
+
+
 
     if (m_simManager->pinRequired() == QOfonoSimManager::SimPin) {
         m_pinRequired = true;
