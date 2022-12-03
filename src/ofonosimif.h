@@ -23,9 +23,9 @@
 #define OFONOSIMIF_H
 
 #include <QtCore/QObject>
+#include <qofono-qt5/qofono.h>
 #include <qofono-qt5/qofonomanager.h>
 #include <qofono-qt5/qofonosimmanager.h>
-#include <qofono-qt5/qofono.h>
 
 class PukInfo : public QObject {
     Q_OBJECT

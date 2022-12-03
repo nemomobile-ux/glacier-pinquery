@@ -43,7 +43,7 @@ void OfonoSimIf::startup()
     m_omanager = new QOfonoManager(this);
     m_omanager->getModems();
     QString defaultModemPath = m_omanager->defaultModem();
-    qDebug() << "m_omanager->defaultModem()" <<  defaultModemPath;
+    qDebug() << "m_omanager->defaultModem()" << defaultModemPath;
 
     if (defaultModemPath == "") {
         qWarning() << "No modems detected";
@@ -57,6 +57,7 @@ void OfonoSimIf::startup()
 
     m_simManager = new QOfonoSimManager(this);
     m_simManager->setModemPath(modem.modemPath());
+
     if (!m_simManager->getPropertiesSync()) {
         qWarning() << "m_simManager->getPropertiesSync returned false";
     }
@@ -73,24 +74,22 @@ void OfonoSimIf::startup()
     qDebug() << "m_simManager->pinRequired()" << m_simManager->pinRequired();
     qDebug() << "modemPath" << m_simManager->modemPath();
 
-
-//    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
-//    qDebug() << "subscriberIdentity" << m_simManager->subscriberIdentity();
-//    qDebug() << "mobileCountryCode" << m_simManager->mobileCountryCode();
-//    qDebug() << "mobileNetworkCode" << m_simManager->mobileNetworkCode();
-//    qDebug() << "serviceProviderName" << m_simManager->serviceProviderName();
-//    qDebug() << "subscriberNumbers" << m_simManager->subscriberNumbers();
-//    qDebug() << "serviceNumbers" << m_simManager->serviceNumbers();
-//    qDebug() << "pinRequired" << m_simManager->pinRequired();
-//    qDebug() << "lockedPins" << m_simManager->lockedPins();
-//    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
-//    qDebug() << "preferredLanguages" << m_simManager->preferredLanguages();
-//    qDebug() << "pinRetries" << m_simManager->pinRetries();
-//    qDebug() << "fixedDialing" << m_simManager->fixedDialing();
-//    qDebug() << "barredDialing" << m_simManager->barredDialing();
+    //    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
+    //    qDebug() << "subscriberIdentity" << m_simManager->subscriberIdentity();
+    //    qDebug() << "mobileCountryCode" << m_simManager->mobileCountryCode();
+    //    qDebug() << "mobileNetworkCode" << m_simManager->mobileNetworkCode();
+    //    qDebug() << "serviceProviderName" << m_simManager->serviceProviderName();
+    //    qDebug() << "subscriberNumbers" << m_simManager->subscriberNumbers();
+    //    qDebug() << "serviceNumbers" << m_simManager->serviceNumbers();
+    //    qDebug() << "pinRequired" << m_simManager->pinRequired();
+    //    qDebug() << "lockedPins" << m_simManager->lockedPins();
+    //    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
+    //    qDebug() << "preferredLanguages" << m_simManager->preferredLanguages();
+    //    qDebug() << "pinRetries" << m_simManager->pinRetries();
+    //    qDebug() << "fixedDialing" << m_simManager->fixedDialing();
+    //    qDebug() << "barredDialing" << m_simManager->barredDialing();
 
     return;
-
 
     if (m_simManager->pinRequired() == QOfonoSimManager::SimPin) {
         m_pinRequired = true;
