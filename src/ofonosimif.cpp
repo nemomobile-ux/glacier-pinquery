@@ -54,11 +54,14 @@ void OfonoSimIf::startup()
 
     modem.setPowered(true);
     modem.setOnline(true);
-    modem.getPropertiesSync();
 
     m_simManager = new QOfonoSimManager(this);
     m_simManager->setModemPath(modem.modemPath());
-    m_simManager->getPropertiesSync();
+    if (!m_simManager->getPropertiesSync()) {
+        qWarning() << "m_simManager->getPropertiesSync returned false";
+    }
+
+
 
     QThread::sleep(1);
 
@@ -69,6 +72,7 @@ void OfonoSimIf::startup()
     qDebug() << "modem.powered()" << modem.powered();
     qDebug() << "modem.online()" << modem.online();
 
+    qDebug() << "m_simManager->isValid()" << m_simManager->isValid();
     qDebug() << "m_simManager->present()" << m_simManager->present();
     qDebug() << "m_simManager->pinRequired()" << m_simManager->pinRequired();
     qDebug() << "modemPath" << m_simManager->modemPath();
