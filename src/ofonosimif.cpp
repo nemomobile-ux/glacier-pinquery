@@ -57,7 +57,7 @@ void OfonoSimIf::startup()
     modem.getPropertiesSync();
 
     m_simManager = new QOfonoSimManager(this);
-    m_simManager->setModemPath(defaultModemPath);
+    m_simManager->setModemPath(modem.modemPath());
     m_simManager->getPropertiesSync();
 
     QThread::sleep(1);
