@@ -26,5 +26,7 @@ import QtQuick.Controls.Styles.Nemo 1.0
 ApplicationWindow {
     id: window
 
-    initialPage: PinPage { }
+    initialPage: PinPage {
+    }
+
 }

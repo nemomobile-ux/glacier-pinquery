@@ -48,10 +48,6 @@ Q_DECL_EXPORT int main(int argc, char** argv)
 {
     OfonoSimIf* ofonoSimIf = new OfonoSimIf();
 
-    if (!ofonoSimIf->pinRequired()) {
-        delete ofonoSimIf;
-        exit(0);
-    }
 
     QGuiApplication* app = GlacierApp::app(argc, argv);
     app->setOrganizationName("NemoMobile");
@@ -65,6 +61,14 @@ Q_DECL_EXPORT int main(int argc, char** argv)
     QQuickWindow* window = GlacierApp::showWindow();
     window->setIcon(QIcon("/usr/share/glacier-pinquery/images/glacier-pinquery.png"));
     window->setTitle(QObject::tr("PIN query"));
+
+    QObject::connect(ofonoSimIf, SIGNAL(showWindow()), window, SLOT(show()));
+//    QObject::connect(ofonoSimIf, SIGNAL(hideWindow()), window, SLOT(hide()));
+
+
+    if (!ofonoSimIf->pinRequired()) {
+        window->hide();
+    }
 
     return app->exec();
 }

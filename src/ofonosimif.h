@@ -47,7 +47,7 @@ class OfonoSimIf : public QObject {
     Q_OBJECT
 
 public:
-    OfonoSimIf();
+    OfonoSimIf(QObject *parent = nullptr);
     bool pinRequired();
 
 Q_SIGNALS:
@@ -55,6 +55,8 @@ Q_SIGNALS:
     void pinFailed(int attemptsLeft);
     void pinNotRequired();
     void pinTypeChanged(QString pinType);
+    void showWindow();
+    void hideWindow();
 
 public Q_SLOTS:
     void enterPin(QString pinCode);

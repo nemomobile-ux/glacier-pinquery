@@ -24,29 +24,25 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-Item{
+Item {
     id: pinNumPad
 
     property PinEntry entry
 
-    width: parent.width;
-    height: dialerButtons.height + actionButtons.height
-
     function insertText(text) {
-        entry.appendChar(text)
+        entry.appendChar(text);
     }
 
     function removeChar() {
-        entry.removeChar()
+        entry.removeChar();
     }
 
     function setEntry(pinType) {
         pinPage.pinType = pinType;
-
-        switch(pinType) {
+        switch (pinType) {
         case 'puk':
             entry = pukEntry;
-            entry.placeHolderText = pukEntry.stepOneText
+            entry.placeHolderText = pukEntry.stepOneText;
             changeTimer.start();
             break;
         case 'newpin':
@@ -65,22 +61,26 @@ Item{
             pukEntry.visible = false;
             break;
         }
+    }
 
+    width: parent.width
+    height: dialerButtons.height + actionButtons.height
+
+    Timer {
+        id: quitTimer
+
+        interval: 1000
+        running: false
+        repeat: false
+        onTriggered: window.hide()
     }
 
     Timer {
-        id : quitTimer;
-        interval: 1000;
-        running: false;
-        repeat: false;
-        onTriggered: Qt.quit();
-    }
+        id: changeTimer
 
-    Timer {
-        id : changeTimer;
-        interval: 1500;
-        running: false;
-        repeat: false;
+        interval: 1500
+        running: false
+        repeat: false
         onTriggered: {
             pukEntry.visible = true;
             pinEntry.visible = false;
@@ -88,28 +88,30 @@ Item{
     }
 
     Connections {
-        target: ofonoSimIf
-
-        onPinOk : {
+        function onPinOk() {
             entry.placeHolderText = '';
             entry.succeeded();
             quitTimer.start();
         }
-        onPinFailed : {
+
+        function onPinFailed() {
             entry.failed(attemptsLeft);
         }
-        onPinNotRequired : {
+
+        function onPinNotRequired() {
             entry.notRequired();
         }
-        onPinTypeChanged : {
+
+        function onPinTypeChanged() {
             setEntry(pinType);
         }
-    }
 
-    Behavior on opacity {PropertyAnimation {duration: 500}}
+        target: ofonoSimIf
+    }
 
     ListModel {
         id: buttonsModel
+
         ListElement { number: "1"; letters: ""; }
         ListElement { number: "2"; letters: "ABC"; }
         ListElement { number: "3"; letters: "DEF"; }
@@ -122,10 +124,12 @@ Item{
         ListElement { number: "*"; letters: ""; }
         ListElement { number: "0"; letters: "+"; }
         ListElement { number: "#"; letters: ""; }
+
     }
 
     Grid {
         id: dialerButtons
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: actionButtons.top
@@ -135,18 +139,21 @@ Item{
 
         Repeater {
             model: buttonsModel
+
             delegate: NumButton {
-                width: (dialerButtons.width - Theme.itemSpacingLarge*3) /3
+                width: (dialerButtons.width - Theme.itemSpacingLarge * 3) / 3
                 text: model.number
                 subText: model.letters
                 onPressed: pinNumPad.insertText(model.number)
             }
+
         }
 
     }
 
     Row {
         id: actionButtons
+
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
@@ -154,24 +161,34 @@ Item{
         spacing: Theme.itemSpacingMedium
 
         PinActionButton {
-            width: parent.width/2 - parent.spacing
+            width: parent.width / 2 - parent.spacing
             text: qsTr("Emergency")
             onPressed: {
-                console.log("Emergency calls are not supported")
+                console.log("Emergency calls are not supported");
             }
         }
 
         PinActionButton {
-            width: parent.width/2 - parent.spacing
             property bool btnIsOk: (entry.textInput.state == "Input")
-            text: (btnIsOk)  ? qsTr("Ok") : qsTr("Skip")
+
+            width: parent.width / 2 - parent.spacing
+            text: (btnIsOk) ? qsTr("Ok") : qsTr("Skip")
             onPressed: {
                 if (btnIsOk) {
+                    console.log("Pin " + entry.textInput.text.toString() + " entered")
                     ofonoSimIf.enterPin(entry.textInput.text.toString());
                 } else {
-                    Qt.quit();
+                    console.log("skip pressed");
+                    window.hide();
                 }
             }
+        }
+
+    }
+
+    Behavior on opacity {
+        PropertyAnimation {
+            duration: 500
         }
 
     }

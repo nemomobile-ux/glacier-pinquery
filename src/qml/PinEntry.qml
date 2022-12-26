@@ -24,8 +24,7 @@ import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
 
-Item
-{
+Item {
     id: pinEntry
 
     property string placeHolderText: ''
@@ -34,14 +33,6 @@ Item
     property string notRequiredText: qsTr('PIN not required')
     property TextInput textInput: input
 
-    Timer {
-        id : timer;
-        interval: 1500;
-        running: false;
-        repeat: false;
-        onTriggered: clear();
-    }
-
     function clear() {
         input.text = placeHolderText;
         input.state = "Prompt";
@@ -49,9 +40,9 @@ Item
 
     function failed(attemptsLeft) {
         input.text = errorText;
-        if (attemptsLeft > 0) {
-            input.text += qsTr(" (%n  attempts left)", "PinEntry", attemptsLeft)
-        }
+        if (attemptsLeft > 0)
+            input.text += qsTr(" (%n  attempts left)", "PinEntry", attemptsLeft);
+
         input.state = "ErrorMsg";
         timer.start();
     }
@@ -68,27 +59,34 @@ Item
     }
 
     function appendChar(character) {
-        if (timer.running) {
-            return;
-        }
+        if (timer.running)
+            return ;
 
-        if (input.state != "Input") {
-            input.text = character
-        } else if (input.text.length < 8) {
-            input.text += character
-        };
-
+        if (input.state != "Input")
+            input.text = character;
+        else if (input.text.length < 8)
+            input.text += character;
         input.state = "Input";
     }
 
     function removeChar() {
-        if (input.state == "Input") {
+        if (input.state == "Input")
             input.text = input.text.substring(0, input.text.length - 1);
-        }
+
+    }
+
+    Timer {
+        id: timer
+
+        interval: 1500
+        running: false
+        repeat: false
+        onTriggered: clear()
     }
 
     TextInput {
         id: input
+
         anchors.margins: Theme.itemSpacingSmall
         anchors.fill: parent
         horizontalAlignment: TextInput.AlignHCenter
@@ -100,51 +98,57 @@ Item
         font.pixelSize: Theme.fontSizeExtraLarge
         text: placeHolderText
         state: "Prompt"
-
         onTextChanged: {
-            if (text.length == 0) {
+            if (text.length == 0)
                 pinEntry.clear();
-            }
-        }
 
+        }
         states: [
             State {
-              name: "Prompt"
-              PropertyChanges {
-                target: input
-                color: Theme.accentColor;
-                echoMode: TextInput.Normal
-              }
+                name: "Prompt"
+
+                PropertyChanges {
+                    target: input
+                    color: Theme.accentColor
+                    echoMode: TextInput.Normal
+                }
+
             },
             State {
-              name: "Input"
-              PropertyChanges {
-                target: input
-                color: Theme.textColor
-                echoMode: TextInput.PasswordEchoOnEdit
-              }
+                name: "Input"
+
+                PropertyChanges {
+                    target: input
+                    color: Theme.textColor
+                    echoMode: TextInput.PasswordEchoOnEdit
+                }
+
             },
             State {
-              name: "InfoMsg"
-              PropertyChanges {
-                target: input
-                color: Theme.accentColor;
-                echoMode: TextInput.Normal
-              }
+                name: "InfoMsg"
+
+                PropertyChanges {
+                    target: input
+                    color: Theme.accentColor
+                    echoMode: TextInput.Normal
+                }
+
             },
             State {
-              name: "ErrorMsg"
-              PropertyChanges {
-                target: input
-                color: "red"
-                echoMode: TextInput.Normal
-              }
+                name: "ErrorMsg"
+
+                PropertyChanges {
+                    target: input
+                    color: "red"
+                    echoMode: TextInput.Normal
+                }
+
             }
         ]
     }
 
-    BackButton{
-        anchors.verticalCenter: input.verticalCenter;
+    BackButton {
+        anchors.verticalCenter: input.verticalCenter
         anchors.right: parent.right
         anchors.margins: Theme.itemSpacingMedium
         visible: input.state == "Input"
@@ -152,4 +156,5 @@ Item
             pinEntry.removeChar();
         }
     }
+
 }

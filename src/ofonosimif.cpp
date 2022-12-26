@@ -28,79 +28,46 @@
 #define RETRIES_PIN 3
 #define RETRIES_PUK 10
 
-OfonoSimIf::OfonoSimIf()
+OfonoSimIf::OfonoSimIf(QObject* parent)
     : m_simManager(0)
     , m_pinRequired(false)
     , m_attemptsLeft(RETRIES_PIN)
     , m_pinType("none")
+    , QObject(parent)
 {
+    m_omanager = new QOfonoManager(this);
+    m_omanager->getModems();
+    QString defaultModemPath = m_omanager->defaultModem();
+
+    if (defaultModemPath == "") {
+        qWarning() << "No modems detected";
+        exit(0);
+    }
+
+    m_simManager = new QOfonoSimManager(this);
+    qDebug() << "Setting defaultModemPath" << defaultModemPath;
+    m_simManager->setModemPath(defaultModemPath);
+
+    connect(m_simManager, SIGNAL(enterPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(enterPinComplete(QOfonoSimManager::Error, QString)));
+    connect(m_simManager, SIGNAL(resetPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(resetPinComplete(QOfonoSimManager::Error, QString)));
+    connect(m_simManager, SIGNAL(pinRequiredChanged(int)), this, SLOT(pinRequiredChanged(int)));
+
 }
 
 void OfonoSimIf::startup()
 {
     qDebug() << QString("-->OfonoSimIf::startup");
 
-    m_omanager = new QOfonoManager(this);
-    m_omanager->getModems();
-    QString defaultModemPath = m_omanager->defaultModem();
-    qDebug() << "m_omanager->defaultModem()" << defaultModemPath;
-
-    if (defaultModemPath == "") {
-        qWarning() << "No modems detected";
-        return;
-    }
-
-    QOfonoModem modem(defaultModemPath);
-
-    modem.setPowered(true);
-    modem.setOnline(true);
-
-    m_simManager = new QOfonoSimManager(this);
-    m_simManager->setModemPath(modem.modemPath());
-
     if (!m_simManager->getPropertiesSync()) {
         qWarning() << "m_simManager->getPropertiesSync returned false";
     }
-
-    qDebug() << "modem.modemPath()" << modem.modemPath();
-    qDebug() << "modem.name()" << modem.name();
-    qDebug() << "modem.manufacturer()" << modem.manufacturer();
-
-    qDebug() << "modem.powered()" << modem.powered();
-    qDebug() << "modem.online()" << modem.online();
 
     qDebug() << "m_simManager->isValid()" << m_simManager->isValid();
     qDebug() << "m_simManager->present()" << m_simManager->present();
     qDebug() << "m_simManager->pinRequired()" << m_simManager->pinRequired();
     qDebug() << "modemPath" << m_simManager->modemPath();
 
-    //    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
-    //    qDebug() << "subscriberIdentity" << m_simManager->subscriberIdentity();
-    //    qDebug() << "mobileCountryCode" << m_simManager->mobileCountryCode();
-    //    qDebug() << "mobileNetworkCode" << m_simManager->mobileNetworkCode();
-    //    qDebug() << "serviceProviderName" << m_simManager->serviceProviderName();
-    //    qDebug() << "subscriberNumbers" << m_simManager->subscriberNumbers();
-    //    qDebug() << "serviceNumbers" << m_simManager->serviceNumbers();
-    //    qDebug() << "pinRequired" << m_simManager->pinRequired();
-    //    qDebug() << "lockedPins" << m_simManager->lockedPins();
-    //    qDebug() << "cardIdentifier" << m_simManager->cardIdentifier();
-    //    qDebug() << "preferredLanguages" << m_simManager->preferredLanguages();
-    //    qDebug() << "pinRetries" << m_simManager->pinRetries();
-    //    qDebug() << "fixedDialing" << m_simManager->fixedDialing();
-    //    qDebug() << "barredDialing" << m_simManager->barredDialing();
-
-    return;
-
-    if (m_simManager->pinRequired() == QOfonoSimManager::SimPin) {
-        m_pinRequired = true;
-        m_pinType = QString("pin");
-        m_attemptsLeft = RETRIES_PIN;
-    }
-    if (m_simManager->pinRequired() == QOfonoSimManager::SimPuk) {
-        m_pinRequired = true;
-        m_pinType = QString("puk");
-        m_attemptsLeft = RETRIES_PUK;
-    }
+    pinRequiredChanged(m_simManager->pinRequired());
 
     // OfonoPinRetries retries = m_simManager->pinRetries();
 
@@ -108,33 +75,13 @@ void OfonoSimIf::startup()
     //     m_attemptsLeft = retries["pin"];
     // }
 
-    connect(m_simManager, SIGNAL(enterPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(enterPinComplete(QOfonoSimManager::Error, QString)));
-    connect(m_simManager, SIGNAL(resetPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(resetPinComplete(QOfonoSimManager::Error, QString)));
-    connect(m_simManager, SIGNAL(pinRequiredChanged(int)), this, SLOT(pinRequiredChanged(int)));
     // connect(m_simManager, SIGNAL(pinRetriesChanged(const OfonoPinRetries&)), this, SLOT(pinRetriesChanged(const OfonoPinRetries&)));
 
-    if (modem.isValid()) {
-        qDebug() << QString("Modem ok");
-
-        if (!modem.powered()) {
-            modem.setPowered(true);
-        }
-
-        if (!modem.online()) {
-            modem.setOnline(true);
-        }
-    }
     qDebug() << QString("<--OfonoSimIf::startup");
 }
 
 bool OfonoSimIf::pinRequired()
 {
-    qDebug() << QString("-->OfonoSimIf::pinRequired");
-
-    if (!m_simManager) {
-        startup();
-    }
-
     qDebug() << QString("pinRequired:") << m_pinRequired;
 
     return m_pinRequired;
@@ -179,6 +126,7 @@ void OfonoSimIf::enterPin(QString pinCode)
 
         qDebug() << QString("m_pinType") << m_pinType;
     } else {
+        qDebug() << "no pin required";
         emit pinNotRequired();
     }
     qDebug() << QString("<--OfonoSimIf::enterPin");
@@ -238,17 +186,25 @@ void OfonoSimIf::pinRequiredChanged(int pinType)
 
     if (pinType == QOfonoSimManager::SimPin) {
         m_pinRequired = true;
-        m_pinType = pinType;
+        m_pinType = QString("pin");
         m_attemptsLeft = RETRIES_PIN;
         qDebug() << QString("OfonoSimIf::pinRequiredChanged: pin");
     } else if (pinType == QOfonoSimManager::SimPuk) {
         m_pinRequired = true;
-        m_pinType = pinType;
+        m_pinType = QString("puk");
         m_attemptsLeft = RETRIES_PUK;
         qDebug() << QString("OfonoSimIf::pinRequiredChanged: puk");
     } else {
         m_pinRequired = false;
         qDebug() << QString("OfonoSimIf::pinRequiredChanged: NO");
+    }
+
+    if (m_pinRequired) {
+        qDebug() << "Show";
+        emit showWindow();
+    } else {
+        qDebug() << "Hide";
+        emit hideWindow();
     }
 
     emit pinTypeChanged(m_pinType);

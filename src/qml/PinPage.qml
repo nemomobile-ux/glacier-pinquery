@@ -27,18 +27,17 @@ import QtQuick.Controls.Styles.Nemo 1.0
 
 Page {
     id: pinPage
-    property string pinType: ofonoSimIf.pinType()
 
-    headerTools: HeaderToolsLayout {
-        title: qsTr("Unlock SIM card")
-    }
+    property string pinType: ofonoSimIf.pinType()
 
     PinEntry {
         id: pinEntry
+
         visible: true
         placeHolderText: qsTr('Enter PIN code')
         errorText: qsTr('Incorrect PIN code')
         okText: qsTr('PIN code correct')
+
         anchors {
             top: parent.top
             bottom: numPad.top
@@ -46,37 +45,46 @@ Page {
             right: parent.right
             margins: Theme.itemSpacingSmall
         }
+
     }
 
     PinEntry {
         id: pukEntry
-        visible: false
-        placeHolderText: qsTr('Enter PUK code')
-        errorText: qsTr('Resetting PIN code failed')
-        okText: qsTr('PIN code resetted successfully')
 
         property string stepOneText: qsTr('Enter PUK code')
         property string stepTwoText: qsTr('Enter new pin code')
         property string stepThreeText: qsTr('Re-enter new pin code')
 
+        visible: false
+        placeHolderText: qsTr('Enter PUK code')
+        errorText: qsTr('Resetting PIN code failed')
+        okText: qsTr('PIN code resetted successfully')
+
         anchors {
+            //            margins: Theme.itemSpacingSmall
+
             top: parent.top
             bottom: numPad.top
             left: parent.left
             right: parent.right
-//            margins: Theme.itemSpacingSmall
         }
+
     }
 
     PinNumPad {
         id: numPad
-        anchors.bottom: parent.bottom;
+
+        anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-//        anchors.margins: Theme.itemSpacingLarge
+        //        anchors.margins: Theme.itemSpacingLarge
         Component.onCompleted: {
-            setEntry(pinPage.pinType)
+            setEntry(pinPage.pinType);
         }
-
     }
+
+    headerTools: HeaderToolsLayout {
+        title: qsTr("Unlock SIM card")
+    }
+
 }
