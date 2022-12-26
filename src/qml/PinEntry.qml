@@ -40,9 +40,9 @@ Item {
 
     function failed(attemptsLeft) {
         input.text = errorText;
-        if (attemptsLeft > 0)
+        if (attemptsLeft > 0) {
             input.text += qsTr(" (%n  attempts left)", "PinEntry", attemptsLeft);
-
+        }
         input.state = "ErrorMsg";
         timer.start();
     }

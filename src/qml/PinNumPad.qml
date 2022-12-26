@@ -94,7 +94,7 @@ Item {
             quitTimer.start();
         }
 
-        function onPinFailed() {
+        function onPinFailed(attemptsLeft) {
             entry.failed(attemptsLeft);
         }
 
@@ -102,7 +102,7 @@ Item {
             entry.notRequired();
         }
 
-        function onPinTypeChanged() {
+        function onPinTypeChanged(pinType) {
             setEntry(pinType);
         }
 
