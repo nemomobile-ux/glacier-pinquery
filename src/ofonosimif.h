@@ -47,7 +47,7 @@ class OfonoSimIf : public QObject {
     Q_OBJECT
 
 public:
-    OfonoSimIf(QObject *parent = nullptr);
+    OfonoSimIf(QObject* parent = nullptr);
     bool pinRequired();
 
 Q_SIGNALS:

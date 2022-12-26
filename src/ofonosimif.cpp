@@ -51,7 +51,6 @@ OfonoSimIf::OfonoSimIf(QObject* parent)
     connect(m_simManager, SIGNAL(enterPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(enterPinComplete(QOfonoSimManager::Error, QString)));
     connect(m_simManager, SIGNAL(resetPinComplete(QOfonoSimManager::Error, QString)), this, SLOT(resetPinComplete(QOfonoSimManager::Error, QString)));
     connect(m_simManager, SIGNAL(pinRequiredChanged(int)), this, SLOT(pinRequiredChanged(int)));
-
 }
 
 void OfonoSimIf::startup()

@@ -48,7 +48,6 @@ Q_DECL_EXPORT int main(int argc, char** argv)
 {
     OfonoSimIf* ofonoSimIf = new OfonoSimIf();
 
-
     QGuiApplication* app = GlacierApp::app(argc, argv);
     app->setOrganizationName("NemoMobile");
 
@@ -63,8 +62,7 @@ Q_DECL_EXPORT int main(int argc, char** argv)
     window->setTitle(QObject::tr("PIN query"));
 
     QObject::connect(ofonoSimIf, SIGNAL(showWindow()), window, SLOT(show()));
-//    QObject::connect(ofonoSimIf, SIGNAL(hideWindow()), window, SLOT(hide()));
-
+    //    QObject::connect(ofonoSimIf, SIGNAL(hideWindow()), window, SLOT(hide()));
 
     if (!ofonoSimIf->pinRequired()) {
         window->hide();
