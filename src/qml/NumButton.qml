@@ -21,37 +21,39 @@ import QtQuick 2.6
 import QtQuick.Controls 1.0
 import QtQuick.Controls.Nemo 1.0
 import QtQuick.Controls.Styles.Nemo 1.0
-
 import org.nemomobile.contacts 1.0
-
 
 Rectangle {
     id: btn
-    width: height
-    height: Theme.itemHeightExtraLarge
-
-    color: dialerButtonMouse.pressed ? Theme.fillColor : "transparent"
-//    color: "transparent";
-    radius: height/2
 
     property alias text: numberText.text
     property alias subText: letterText.text
 
-    signal pressed();
-    signal pressAndHold();
+    signal pressed()
+    signal pressAndHold()
+
+    width: height
+    height: Theme.itemHeightExtraLarge
+    color: dialerButtonMouse.pressed ? Theme.fillColor : "transparent"
+    //    color: "transparent";
+    radius: height / 2
 
     Text {
+        //            text: btn.text
+
         id: numberText
+
         color: dialerButtonMouse.pressed ? Theme.accentColor : Theme.textColor
-        font.pixelSize: btn.height*0.8
+        font.pixelSize: btn.height * 0.8
         font.family: Theme.fontFamily
         font.weight: Theme.fontWeightMedium
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: -btn.width*0.15
-        //            text: btn.text
+        anchors.horizontalCenterOffset: -btn.width * 0.15
     }
+
     Text {
         id: letterText
+
         color: Theme.fillColor
         font.pixelSize: numberText.font.pixelSize * 0.4
         font.family: Theme.fontFamily
@@ -61,14 +63,14 @@ Rectangle {
         anchors.baseline: numberText.baseline
     }
 
-
     Shortcut {
         sequence: numberText.text
-        onActivated: btn.pressed();
+        onActivated: btn.pressed()
     }
 
     MouseArea {
         id: dialerButtonMouse
+
         anchors.fill: parent
         onPressed: {
             btn.pressed();

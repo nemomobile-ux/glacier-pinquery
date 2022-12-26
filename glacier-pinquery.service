@@ -1,9 +1,15 @@
 [Unit]
 Description=Pin query app
-After=graphical-session-pre.target
-Requires=dbus.socket graphical-session-pre.target
+After=lipstick.target
+Requires=dbus.socket lipstick.service
 
 [Service]
 Type=simple
+Environment="QT_QPA_PLATFORM=wayland"
 ExecStart=/usr/bin/glacier-pinquery
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=graphical-session.target
 

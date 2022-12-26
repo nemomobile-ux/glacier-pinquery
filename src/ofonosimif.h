@@ -23,6 +23,8 @@
 #define OFONOSIMIF_H
 
 #include <QtCore/QObject>
+#include <qofono-qt5/qofono.h>
+#include <qofono-qt5/qofonomanager.h>
 #include <qofono-qt5/qofonosimmanager.h>
 
 class PukInfo : public QObject {
@@ -45,7 +47,7 @@ class OfonoSimIf : public QObject {
     Q_OBJECT
 
 public:
-    OfonoSimIf();
+    OfonoSimIf(QObject* parent = nullptr);
     bool pinRequired();
 
 Q_SIGNALS:
@@ -53,6 +55,8 @@ Q_SIGNALS:
     void pinFailed(int attemptsLeft);
     void pinNotRequired();
     void pinTypeChanged(QString pinType);
+    void showWindow();
+    void hideWindow();
 
 public Q_SLOTS:
     void enterPin(QString pinCode);
@@ -70,6 +74,7 @@ private:
 
 private:
     QOfonoSimManager* m_simManager;
+    QOfonoManager* m_omanager;
     bool m_pinRequired;
     int m_attemptsLeft;
     QString m_pinType;
