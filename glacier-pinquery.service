@@ -5,11 +5,10 @@ Requires=dbus.socket lipstick.service
 
 [Service]
 Type=simple
-Environment="QT_QPA_PLATFORM=wayland"
 ExecStart=/usr/bin/glacier-pinquery
 Restart=always
 RestartSec=10
 
 [Install]
-WantedBy=graphical-session.target
+WantedBy=user-session.target
 
