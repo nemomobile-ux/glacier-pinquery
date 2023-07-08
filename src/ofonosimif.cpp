@@ -21,9 +21,9 @@
 
 #include "ofonosimif.h"
 #include <QtDebug>
-#include <qofono-qt5/qofonomanager.h>
-#include <qofono-qt5/qofonomodem.h>
-#include <qofono-qt5/qofononetworkregistration.h>
+#include <qofonomanager.h>
+#include <qofonomodem.h>
+#include <qofononetworkregistration.h>
 
 #define RETRIES_PIN 3
 #define RETRIES_PUK 10

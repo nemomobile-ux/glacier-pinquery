@@ -14,21 +14,19 @@ include(FeatureSummary)
 include(GNUInstallDirs)
 
 set(QT_MIN_VERSION "5.11.0")
-find_package(Qt5 COMPONENTS Gui Qml Quick DBus LinguistTools REQUIRED)
+find_package(Qt6 COMPONENTS Gui Qml Quick DBus LinguistTools REQUIRED)
 find_package(Glacier 0.8 COMPONENTS App REQUIRED)
-find_package(Qt5QuickCompiler)
-
 
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(QOFONO qofono-qt5 IMPORTED_TARGET)
+pkg_check_modules(QOFONO qofono-qt6 IMPORTED_TARGET)
 pkg_check_modules(SYSTEMD libsystemd)
 
 add_subdirectory(src)
 
 if(QOFONO_FOUND)
-	set_property(GLOBAL APPEND PROPERTY PACKAGES_FOUND qofono-qt5)
+	set_property(GLOBAL APPEND PROPERTY PACKAGES_FOUND qofono-qt6)
 else()
-	set_property(GLOBAL APPEND PROPERTY PACKAGES_NOT_FOUND qofono-qt5)
+	set_property(GLOBAL APPEND PROPERTY PACKAGES_NOT_FOUND qofono-qt6)
 endif()
 if(SYSTEMD_FOUND)
 	set_property(GLOBAL APPEND PROPERTY PACKAGES_FOUND libsystemd)
@@ -46,7 +44,7 @@ feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 # Translations
 file(GLOB TS_FILES translations/*.ts)
-qt5_add_translation(QM_FILES ${TS_FILES})
+qt_add_translation(QM_FILES ${TS_FILES})
 add_custom_target(translations DEPENDS ${QM_FILES})
 add_dependencies(glacier-pinquery translations)
 
