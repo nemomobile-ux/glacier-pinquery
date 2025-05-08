@@ -18,6 +18,7 @@
 */
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 
 Rectangle {
@@ -42,7 +43,6 @@ Rectangle {
 
         color: dialerButtonMouse.pressed ? Theme.accentColor : Theme.textColor
         font.pixelSize: btn.height * 0.8
-        font.family: Theme.fontFamily
         font.weight: Theme.fontWeightMedium
         anchors.centerIn: parent
         anchors.horizontalCenterOffset: -btn.width * 0.15
@@ -53,7 +53,6 @@ Rectangle {
 
         color: Theme.fillColor
         font.pixelSize: numberText.font.pixelSize * 0.4
-        font.family: Theme.fontFamily
         font.weight: Theme.fontWeightMedium
         anchors.left: numberText.right
         anchors.leftMargin: Theme.itemSpacingSmall

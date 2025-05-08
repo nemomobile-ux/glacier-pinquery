@@ -1,7 +1,7 @@
 /*
 * This file is part of meego-pinquery
 *
-* Copyright (C) 2019 Chupligin Sergey <neochapay@gmail.com>
+* Copyright (C) 2019-2025 Chupligin Sergey <neochapay@gmail.com>
 * Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies). All rights reserved.
 *
 * Contact: Sirpa Kemppainen <sirpa.h.kemppainen@nokia.com>
@@ -21,6 +21,7 @@
 */
 
 import QtQuick
+import Nemo
 import Nemo.Controls
 
 Page {

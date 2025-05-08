@@ -26,5 +26,4 @@ ApplicationWindow {
 
     initialPage: PinPage {
     }
-
 }
